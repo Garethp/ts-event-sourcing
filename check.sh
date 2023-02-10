@@ -24,4 +24,21 @@ then
   exit
 fi
 
+if [ ! -f ./node_modules/.bin/typeorm ]; then
+  echo "The next steps use typeorm to check for a database connection, please run 'yarn install' to install it"
+  exit
+fi
+
+DATABASE=postgres ./node_modules/.bin/ts-node ./node_modules/.bin/typeorm query "SELECT 1 FROM pg_database" -d ./ormconfig.ts &> /dev/null
+if [ $? -ne 0 ]; then
+  echo "It looks like typeorm can't connect to postgres. Please check if you have a postgres database running on port 5432 and if the config in ormconfig.ts is correct"
+  exit
+fi
+
+./node_modules/.bin/ts-node ./node_modules/.bin/typeorm query "SELECT schema_name FROM information_schema.schemata" -d ./ormconfig.ts &> /dev/null
+if [ $? -ne 0 ]; then
+  echo "It looks like you don't have a database called 'eventsourcing'. Please create it"
+  exit
+fi
+
 echo "You have everything you need for this workshop!"
