@@ -9,4 +9,6 @@ export default new DataSource({
   database: process.env.DATABASE ?? "eventsourcing",
   schema: "eventsourcing",
   synchronize: false,
+  entities: ["src/infrastructure/entities/*.{js,ts}"],
+  migrations: ["src/infrastructure/migrations/*.ts"],
 });
