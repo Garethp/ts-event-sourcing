@@ -42,5 +42,6 @@ if [ $? -ne 0 ]; then
 fi
 
 ./node_modules/.bin/ts-node ./node_modules/.bin/typeorm query "CREATE SCHEMA IF NOT EXISTS eventsourcing" -d ./ormconfig.ts > /dev/null
+./node_modules/.bin/ts-node ./node_modules/.bin/typeorm query "CREATE SCHEMA IF NOT EXISTS projections" -d ./ormconfig.ts > /dev/null
 
 echo "You have everything you need for this workshop!"
