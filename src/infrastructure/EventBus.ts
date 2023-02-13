@@ -9,11 +9,13 @@ export class EventBus {
     this.subscribers.get(eventType)?.push(callback);
   }
 
-  publish(event: { type: string; data: any }) {
+  async publish(event: { type: string; data: any }) {
     if (!this.subscribers.has(event.type)) {
       return;
     }
 
-    this.subscribers.get(event.type)?.forEach((callback) => callback(event));
+    for (const callback of this.subscribers.get(event.type) ?? []) {
+      await callback(event);
+    }
   }
 }

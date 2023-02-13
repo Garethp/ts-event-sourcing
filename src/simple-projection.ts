@@ -1,7 +1,6 @@
 import DataSource from "../ormconfig";
 import { EventStore } from "./infrastructure/EventStore";
 import { EventBus } from "./infrastructure/EventBus";
-import { BankEvent } from "./Bank";
 import { BankAccountEvent } from "./BankAccount";
 
 DataSource.initialize().then(async () => {
@@ -16,6 +15,7 @@ DataSource.initialize().then(async () => {
         type: "AccountOpened",
         data: {
           accountId: "1",
+          month: 1,
           owner: "John Doe",
         },
       },
@@ -23,6 +23,7 @@ DataSource.initialize().then(async () => {
         type: "AccountOpened",
         data: {
           accountId: "2",
+          month: 1,
           owner: "Jane Doe",
         },
       },
@@ -30,6 +31,7 @@ DataSource.initialize().then(async () => {
         type: "AccountOpened",
         data: {
           accountId: "3",
+          month: 1,
           owner: "John Smith",
         },
       },
@@ -37,6 +39,7 @@ DataSource.initialize().then(async () => {
         type: "AccountClosed",
         data: {
           accountId: "2",
+          month: 1,
         },
       }
     );

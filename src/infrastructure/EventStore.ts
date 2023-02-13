@@ -2,6 +2,8 @@ import { DataSource, Repository } from "typeorm";
 import { BankEvent, bankEventHandler, hydrateBank } from "../Bank";
 import { BankEventEntity } from "./entities/BankEventEntity";
 
+export type SavedBankEvent = BankEvent & { sequenceId: number };
+
 export class EventStore {
   private repository: Repository<BankEventEntity>;
 
@@ -27,14 +29,15 @@ export class EventStore {
     await this.repository.save(newEvents);
   }
 
-  async getEvents(): Promise<BankEvent[]> {
+  async getEvents(): Promise<SavedBankEvent[]> {
     const events = await this.repository.find();
     return events.map(
       (event) =>
         ({
+          sequenceId: event.id,
           type: event.type,
           data: event.data,
-        } as BankEvent)
+        } as SavedBankEvent)
     );
   }
 }

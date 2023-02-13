@@ -5,10 +5,19 @@ export type BankAccountState = {
 };
 
 export type BankAccountEvent =
-  | { type: "AccountOpened"; data: { accountId: string; owner: string } }
-  | { type: "DepositMade"; data: { accountId: string; amount: number } }
-  | { type: "WithdrawalMade"; data: { accountId: string; amount: number } }
-  | { type: "AccountClosed"; data: { accountId: string } };
+  | {
+      type: "AccountOpened";
+      data: { month: number; accountId: string; owner: string };
+    }
+  | {
+      type: "DepositMade";
+      data: { month: number; accountId: string; amount: number };
+    }
+  | {
+      type: "WithdrawalMade";
+      data: { month: number; accountId: string; amount: number };
+    }
+  | { type: "AccountClosed"; data: { month: number; accountId: string } };
 
 export const bankAccountEventHandler = (
   state: BankAccountState,

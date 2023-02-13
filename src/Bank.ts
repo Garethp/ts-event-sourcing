@@ -12,7 +12,12 @@ export type BankEvent =
   | BankAccountEvent
   | {
       type: "TransferMade";
-      data: { fromAccountId: string; toAccountId: string; amount: number };
+      data: {
+        month: number;
+        fromAccountId: string;
+        toAccountId: string;
+        amount: number;
+      };
     };
 
 export const bankEventHandler = (
